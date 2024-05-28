@@ -1,0 +1,40 @@
+// left hand (octave 3)
+#define LC 131
+#define LCsharp 128
+#define LD 147
+#define LDsharp 155
+#define LE 165
+#define LF 174
+#define LFsharp 185
+#define LG 196
+#define LGsharp 207
+#define LA 220
+#define LAsharp 233
+
+// right hand/main octaves (4 & 5)
+#define B       247
+#define C       261
+#define Csharp  277
+#define D       293
+#define Dsharp  311
+#define E       329
+#define F       349
+#define Fsharp  370
+#define G       392
+#define Gsharp  415
+#define A       440
+#define Asharp  466
+#define B2      494
+#define C2      523
+#define C2sharp 554
+#define D2      587
+#define D2sharp 622
+#define E2      659
+#define F2      698
+#define F2sharp 740
+#define G2      784
+#define G2sharp 831
+#define A2      880
+#define A2sharp 932
+#define B3      988
+#define C3      1046

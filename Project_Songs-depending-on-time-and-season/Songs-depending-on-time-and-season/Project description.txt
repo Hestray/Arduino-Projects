@@ -1,0 +1,48 @@
+# DESCRIPTION
+This project is meant to play a song based on season and time when the button is pressed. The board used was an Arduino UNO R3. The temperature threshold, as well as the light thresholds can be adjusted depending on registered values.
+
+
+# MATERIALS
+Arduino UNO R3 board
+Resistors: 220 x3, 1k x1, 5.1k x1, 10k x1
+Buzzer x1
+Button x1
+Temperature sensor x1
+Photoresistor x1
+LEDs (of different colors) x2
+Common Cathode 7 Segments x2
+
+
+# CONNECTION
+  The 220 R are connected to the 2 7 segments and another to the yellow LED; the 5.1k is connected to the blue LED due to having more current passing through (and therefore being WAY TOO FUCKING BRIGHT), the 1k is acting as a pull-down resistor for the photoresistor and the 10k is acting as a pull-down resistor for the button.
+  Additionally, the resistor tied to the Light Detecting Resistor (LDR) is also acting as a blocker of some sort, which makes LDR not be so sensitive to light.
+  Make sure to give the LM35 its own ground, otherwise it may act weirdly. In my case, it still acted like a lil' weirdo, so I got it to have an average.
+  Connect the two 7 segments in parallel in order to achieve multiplexing. Make sure the LEDs are connected to the PWM pins, as well as the buzzer. Photoresistor & temperature sensor must be connected to Analog pins too.
+
+# HOW IT WORKS AND WHAT IT DOES
+  The LM35 records the temperature in the room. This value is displayed as an integer on the 2 7-segments. If it is below the temperature threshold, then it deems it to be cold and therefore refers to it as cold SEASON/winter. If it is above, it refers to it as hot season/summer. Therefore this program works with two 'seasons' (to say so): cold and hot.
+  The LDR records the level of light. If there is 'total light' (daytime), it will only turn the yellow LED on. If there is dim light, then it will turn both LEDs on at half power (255/2). If the LDR doesn't record any light, then it will only turn the blue LED on. If it is daytime or nighttime, then it will change the song according to the 'season' it registers.
+  The song is played only if the button was pressed. Pressing it once will trigger the song, so there is no need to hold the button.
+
+
+# FURTHER EXPLANATIONS
+## 7 Segments Multiplexing
+  The multiplexing of the 2 7 segments is done by alternating which segment displays and which is off. In order for the two segments to appear on at the same time, we need to set the frequency with which they alternate higher than 60-70 Hz. For these two, that means at most 8 ms per each display. In order to make sure there are absolutely no flickering, I will set the delay to be 5 ms for each display (around 100 Hz). 
+  Limiting the input voltage using only 2 (220) resistors is way more efficient than using 7 resistors, for each pin. I didn't need to use the dot, so I left it unconnected. I am not too sure if this won't burn them, although it should burn them.
+## Temperature Sensor
+  The formula to transform the values received from the LM35 into temperature (C) is:
+	(Vout * 5) / (10 * 1024) [volts] = (Vout * 5 * 1000) / (10 * 1024) [millivolts]
+  The temperature at which a room is considered cold is around 15°C
+## Debounce mechanism
+  Despite the fact that triggering the buzzer once makes it so that no other sound/tune can override whatever is played now, I decided to add a debounce mechanism for the button in order to make the circuit 'the right way'.
+## Songs/tunes
+  There are 5 tunes: one default tune, 2 summer tunes and 2 winter tunes. There are 5 combinations that represent the songs:
+1. Dim light, any season  => default tune
+2. Nighttime, hot season  => lullaby
+3. Daytime,   hot season  => summer
+4. Nighttime, cold season => silent night
+5. Daytime,   cold season => let it snow
+  Default song is the C major scale.
+  Yes, I wrote all of them by hand. I used Musescore to look for the piano sheets, then translated them into... buzzer songs. It was painful.
+
+  It is possible to have more tunes played at the same time, but I don't think it was necessary for this project, nor the main interest of this project. I also had a lot of issues with the sensors because their values were weird and constantly changing, and to this day I still have no solution to these specific sensors (especially LM35), besides changing it. The board may also have been faulty. 

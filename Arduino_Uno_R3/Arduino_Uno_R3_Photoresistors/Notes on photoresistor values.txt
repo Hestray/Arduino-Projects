@@ -1,0 +1,69 @@
+______________________________________
+
+		DIGITAL
+______________________________________
+DAYLIGHT ROOMLIGHT NOT_TURNED BLINDS_UP				NOSUN CLOUDY 670
+DAYLIGHT 	   NOT_TURNED BLINDS_UP				NOSUN CLOUDY 890
+DAYLIGHT	   TURNED     BLINDS_UP				NOSUN CLOUDY 775
+DAYLIGHT	   NOT_TURNED BLINDS_HALFWAY			NOSUN CLOUDY 975
+DARKNESS	   NOT_TURNED BLINDS_DOWN			NOSUN CLOUDY 1023
+DAYLIGHT	   NOT_TURNED BLIND_UP		FLASHLIGHT_LOW 	NOSUN CLOUDY 600
+DAYLIGHT	   NOT_TURNED BLIND_UP		FLASHLIGHT_HIGH NOSUN CLOUDY 370
+DAYLIGHT	   NOT_TURNED BLINDS_UP				SUN	     770
+DAYLIGHT	   TURNED     BLINDS_UP				SUN	     670
+WINDOWSMILL	   NOT_TURNED BLINDS_UP				SUN	     320
+WINDOWSMILL	   TURNED     BLINDS_UP				SUN	     210
+DAYLIGHT	   NOT_TURNED BLINDS_HALFWAY			SUN          925
+
+
+
+______________________________________
+
+		ANALOG
+______________________________________
+DAYLIGHT ROOMLIGHT NOT_TURNED BLINDS_UP				NOSUN CLOUDY 7.7K
+WINDOWSMILL	   NOT_TURNED BLINDS_UP				SUN	     3.4K
+WINDOWSMILL	   TURNED     BLINDS_UP				SUN	     2.5K
+DAYLIGHT	   NOT_TURNED BLINDS_UP				SUN	     8.3K
+DAYLIGHT	   TURNED     BLINDS_UP				SUN	     7.5K
+DAYLIGHT 	   NOT_TURNED BLINDS_HALFWAY			SUN	     9.8K
+DARKNESS	   NOT_TURNED BLINDS_DOWN			SUN	     120K
+DAYLIGHT	   NOT_TURNED BLINDS_UP				SUN_HIDING   11K
+DAYLIGHT 	   TURNED     BLINDS_UP				SUN_HIDING   10.2K
+
+
+
+______________________________________
+		
+		 NOTES
+______________________________________
+The values were recorded on 11th of May 2024, from 6 to 7 PM. Orientation of the room is towards North. The sun was on and off, with the sky being overcast by clouds.
+
+The configuration of the circuit is made in such a way that it detects darkness rather than light. For a light configuration, invert the GND and VCC connections.
+
+1. Flashlight level is LOW (1) or HIGH (5) using Samsung Galaxy S22 Flashlight
+2. Flashlight was kept around 20 cm away from the photoresistor
+3. Daylight refers to the room filled with natural lights, with the blinds up and nothing shadowing the photoresistor from direct light of the window.
+4. Turned and not_turned refer to the photoresistor being held in such a way that it is turned towards the window or not, making the light fall on an angle on the photoresistor or falling equally on it.
+5. Roomlight attribute refers to whether the light bulb in the room was turned on or not. If it was, this attribute appears, otherwise no.
+6. Values were recorded in the middle of a basic circuit. The circuit is within this folder, saved as VALUES_circuit.png and IRL_VALUES_circuit.png, therefore the actual values are way higher and can be observed in the Excel sheet (Photoresistor values.xls). The code for this circuit is saved in a Notepad file (Photoresistor Values.txt).
+
+In normal light conditions on the same afternoon, the recorded resistance values were anywhere from 10k to 20k (least recorded was 10.8k and maximum was a bit over 19k).
+
+
+
+______________________________________
+
+	       CONCLUSIONS
+______________________________________
+
+Daylight range (that is considered 'bright'):
+DIGITAL: 	975 (925) 	890 (210)		
+ANALOG: 	12.4kOHM 	11.5kOHM (2.5k)
+The analog value outside of the circuit should be around 200k, whih is already dim enough and can even be considered darkness.
+
+Usually the light is considered 'bright' (close to reaching 0 digital) is around 1kOHM and less. Darkness sets in at around digital 1000+ or even above 900, depends on what one defines as dark. I would consider dark when writing and reading begins to be impaired. Since this photoresistor detects the faintest of light, it is difficult to gauge darkness or dim light, as sometimes, these two values overlap.
+
+
+As an overall conclusions, it is to be noted that a normal, but rather dim light coming through a room with orientation towards northern side can be estimated to be over a digital value of 600 and can be considered daytime. Additionally, if direct light (not sun light, but a more open space where light can easily enter) were to fall on top of the photocell, then those values can go as low as 200-300, with brightest flashlight right on top of it to be 370. Do take note that some of the values are somewhat confusing, and that they were also recorded with the photoresistor directly connected to the circuit and as such, there are variations.
+For a dark room, it seems to be that the case with halfway blinds and sun or cloudy settings were the best at reaching a dim light. As such, digital values as high as 975 and low as 925 can be taken as reference points for a dim room. Unrecorded, it seems that a naturally dark room can be considered to be only above 1000, with the darkest room to be 1023. This makes the overall range to be a somewhat 200-600 for bright rooms or places, 600-900 to be daylight room (sunny, overcast with clouds, shadowy areas included), 900 to 1000 to be a dim room signaling the break of dawn or the end of the day. Anything over 1000 can be considered a natural night time.

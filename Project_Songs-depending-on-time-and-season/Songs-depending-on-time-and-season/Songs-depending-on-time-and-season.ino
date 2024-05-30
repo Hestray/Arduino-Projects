@@ -10,22 +10,22 @@
 #include "songs.h"
 
 // PINS DEFINITIONS
-// const int GND1      = 2;  // left side 7 segment
-// const int GND2      = 4;  // right side 7 segment
+const int GND1      = 2;  // left side 7 segment
+const int GND2      = 4;  // right side 7 segment
 const int blueLED   = 3;
 const int yellowLED = 5;
 const int BUZZER    = 6;
-const int BUTTON    = 8; // out of pins lol :( this will act as digital pin
+const int BUTTON    = A2; // out of pins lol :( this will act as digital pin
 const int LDR       = A1;
 const int LM35      = A0;
 // 7 segment digit pins     //               A          //
-// const int A_pin = 7;        //            _ _ _ _       //
-// const int B_pin = 8;        //           /      /       //
-// const int C_pin = 9;        //      G   /  H   /   B    //  DIAGRAM OF 7 SEGMENT 
-// const int D_pin = 10;       //         /_ _ _ /         //  CAN BE FOUND WITHIN
-// const int E_pin = 11;       //        /      /          //      THE FOLDER
-// const int F_pin = 12;       //    F  /      /   C       //
-// const int G_pin = 13;       //      /_ _ _ /            //
+const int A_pin = 7;        //            _ _ _ _       //
+const int B_pin = 8;        //           /      /       //
+const int C_pin = 9;        //      G   /  H   /   B    //  DIAGRAM OF 7 SEGMENT 
+const int D_pin = 10;       //         /_ _ _ /         //  CAN BE FOUND WITHIN
+const int E_pin = 11;       //        /      /          //      THE FOLDER
+const int F_pin = 12;       //    F  /      /   C       //
+const int G_pin = 13;       //      /_ _ _ /            //
                             //         D                //
 
 // variables to use in the code
@@ -55,136 +55,136 @@ void setup()
   analogReference(DEFAULT);
   pinMode(BUTTON, INPUT);
   // 7 segment grounds
-  // pinMode(GND1, OUTPUT);
-  // pinMode(GND2, OUTPUT);
+  pinMode(GND1, OUTPUT);
+  pinMode(GND2, OUTPUT);
   // 7 segment digit pins
-  // pinMode(A_pin, OUTPUT);
-  // pinMode(B_pin, OUTPUT);
-  // pinMode(C_pin, OUTPUT);
-  // pinMode(D_pin, OUTPUT);
-  // pinMode(E_pin, OUTPUT);
-  // pinMode(F_pin, OUTPUT);
-  // pinMode(G_pin, OUTPUT);
+  pinMode(A_pin, OUTPUT);
+  pinMode(B_pin, OUTPUT);
+  pinMode(C_pin, OUTPUT);
+  pinMode(D_pin, OUTPUT);
+  pinMode(E_pin, OUTPUT);
+  pinMode(F_pin, OUTPUT);
+  pinMode(G_pin, OUTPUT);
   // take the time the board started running this program
   currTime = millis();
   // add a new row to Serial Monitor
   Serial.println("");
 }
 
-// void clearDisplay(byte STATE) { // clears the display & helps with reseting it
-//   digitalWrite(A_pin, STATE);
-//   digitalWrite(B_pin, STATE);
-//   digitalWrite(C_pin, STATE);
-//   digitalWrite(D_pin, STATE);
-//   digitalWrite(E_pin, STATE);
-//   digitalWrite(F_pin, STATE);
-//   digitalWrite(G_pin, STATE);
-// }
+void clearDisplay(byte STATE) { // clears the display & helps with reseting it
+  digitalWrite(A_pin, STATE);
+  digitalWrite(B_pin, STATE);
+  digitalWrite(C_pin, STATE);
+  digitalWrite(D_pin, STATE);
+  digitalWrite(E_pin, STATE);
+  digitalWrite(F_pin, STATE);
+  digitalWrite(G_pin, STATE);
+}
 
-// void display(int position, unsigned int digit, byte STATE) {
-//   clearDisplay(!STATE);
-//   if (position == 1) {
-//     digitalWrite(GND1, !STATE);	// left 7 seg active; LOW
-//     digitalWrite(GND2, STATE);
-//   } else {
-//     if (position == 2) {
-//         digitalWrite(GND1, STATE);
-//         digitalWrite(GND2, !STATE);	// right 7 seg active; LOW
-//       }
-//   }
+void display(int position, unsigned int digit, byte STATE) {
+  clearDisplay(!STATE);
+  if (position == 1) {
+    digitalWrite(GND1, !STATE);	// left 7 seg active; LOW
+    digitalWrite(GND2, STATE);
+  } else {
+    if (position == 2) {
+        digitalWrite(GND1, STATE);
+        digitalWrite(GND2, !STATE);	// right 7 seg active; LOW
+      }
+  }
   
-//     switch(digit) {
-//       case 1: {
-//         digitalWrite(B_pin, STATE);
-//         digitalWrite(C_pin, STATE);
-//         break;
-//       }
+    switch(digit) {
+      case 1: {
+        digitalWrite(B_pin, STATE);
+        digitalWrite(C_pin, STATE);
+        break;
+      }
 
-//       case 2: {
-//         digitalWrite(A_pin, STATE);
-//         digitalWrite(B_pin, STATE);
-//         digitalWrite(G_pin, STATE);
-//         digitalWrite(E_pin, STATE);
-//         digitalWrite(D_pin, STATE);
-//         break;
-//       }
+      case 2: {
+        digitalWrite(A_pin, STATE);
+        digitalWrite(B_pin, STATE);
+        digitalWrite(G_pin, STATE);
+        digitalWrite(E_pin, STATE);
+        digitalWrite(D_pin, STATE);
+        break;
+      }
 
-//       case 3: {
-//         digitalWrite(A_pin, STATE);
-//         digitalWrite(B_pin, STATE);
-//         digitalWrite(G_pin, STATE);
-//         digitalWrite(C_pin, STATE);
-//         digitalWrite(D_pin, STATE);
-//         break;
-//       }
+      case 3: {
+        digitalWrite(A_pin, STATE);
+        digitalWrite(B_pin, STATE);
+        digitalWrite(G_pin, STATE);
+        digitalWrite(C_pin, STATE);
+        digitalWrite(D_pin, STATE);
+        break;
+      }
 
-//       case 4: {
-//         digitalWrite(F_pin, STATE);
-//         digitalWrite(G_pin, STATE);
-//         digitalWrite(B_pin, STATE);
-//         digitalWrite(C_pin, STATE);
-//         break;
-//       }
+      case 4: {
+        digitalWrite(F_pin, STATE);
+        digitalWrite(G_pin, STATE);
+        digitalWrite(B_pin, STATE);
+        digitalWrite(C_pin, STATE);
+        break;
+      }
 
-//       case 5: {
-//         digitalWrite(A_pin, STATE);
-//         digitalWrite(F_pin, STATE);
-//         digitalWrite(G_pin, STATE);
-//         digitalWrite(C_pin, STATE);
-//         digitalWrite(D_pin, STATE);
-//         break;
-//       }
+      case 5: {
+        digitalWrite(A_pin, STATE);
+        digitalWrite(F_pin, STATE);
+        digitalWrite(G_pin, STATE);
+        digitalWrite(C_pin, STATE);
+        digitalWrite(D_pin, STATE);
+        break;
+      }
 
-//       case 6: {
-//         digitalWrite(A_pin, STATE);
-//         digitalWrite(F_pin, STATE);
-//         digitalWrite(G_pin, STATE);
-//         digitalWrite(C_pin, STATE);
-//         digitalWrite(D_pin, STATE);
-//         digitalWrite(E_pin, STATE);
-//         break;
-//       }
+      case 6: {
+        digitalWrite(A_pin, STATE);
+        digitalWrite(F_pin, STATE);
+        digitalWrite(G_pin, STATE);
+        digitalWrite(C_pin, STATE);
+        digitalWrite(D_pin, STATE);
+        digitalWrite(E_pin, STATE);
+        break;
+      }
 
-//       case 7: {
-//         digitalWrite(A_pin, STATE);
-//         digitalWrite(B_pin, STATE);
-//         digitalWrite(C_pin, STATE);
-//         break;
-//       }
+      case 7: {
+        digitalWrite(A_pin, STATE);
+        digitalWrite(B_pin, STATE);
+        digitalWrite(C_pin, STATE);
+        break;
+      }
 
-//       case 8: {
-//         digitalWrite(A_pin, STATE);
-//         digitalWrite(B_pin, STATE);
-//         digitalWrite(C_pin, STATE);
-//         digitalWrite(D_pin, STATE);
-//         digitalWrite(E_pin, STATE);
-//         digitalWrite(F_pin, STATE);
-//         digitalWrite(G_pin, STATE);
-//         break;
-//       }
+      case 8: {
+        digitalWrite(A_pin, STATE);
+        digitalWrite(B_pin, STATE);
+        digitalWrite(C_pin, STATE);
+        digitalWrite(D_pin, STATE);
+        digitalWrite(E_pin, STATE);
+        digitalWrite(F_pin, STATE);
+        digitalWrite(G_pin, STATE);
+        break;
+      }
 
-//       case 9: {
-//         digitalWrite(A_pin, STATE);
-//         digitalWrite(B_pin, STATE);
-//         digitalWrite(C_pin, STATE);
-//         digitalWrite(D_pin, STATE);
-//         digitalWrite(G_pin, STATE);
-//         digitalWrite(F_pin, STATE);
-//         break;
-//       }
+      case 9: {
+        digitalWrite(A_pin, STATE);
+        digitalWrite(B_pin, STATE);
+        digitalWrite(C_pin, STATE);
+        digitalWrite(D_pin, STATE);
+        digitalWrite(G_pin, STATE);
+        digitalWrite(F_pin, STATE);
+        break;
+      }
 
-//       default: {
-//         digitalWrite(A_pin, STATE);
-//         digitalWrite(B_pin, STATE);
-//         digitalWrite(C_pin, STATE);
-//         digitalWrite(D_pin, STATE);
-//         digitalWrite(E_pin, STATE);
-//         digitalWrite(F_pin, STATE);
-//         // for 0 and any other number (that would not be a digit)
-//         break;
-//       }
-//     }
-// }
+      default: {
+        digitalWrite(A_pin, STATE);
+        digitalWrite(B_pin, STATE);
+        digitalWrite(C_pin, STATE);
+        digitalWrite(D_pin, STATE);
+        digitalWrite(E_pin, STATE);
+        digitalWrite(F_pin, STATE);
+        // for 0 and any other number (that would not be a digit)
+        break;
+      }
+    }
+}
 void loop()
 {
   byte state = HIGH; // high for cathode, low for anode
@@ -214,10 +214,10 @@ void loop()
       Serial.print("Temp: ");
       Serial.println(avgTemp);
       // display the temperature
-      // display(1, (int)round(floor(avgTemp)) / 10, state);
-      // delay(5); // 100 Hz
-      // display(2, (int)round(floor(avgTemp)) % 10, state);
-      // delay(5);
+      display(1, (int)round(floor(avgTemp)) / 10, state);
+      delay(5); // 100 Hz
+      display(2, (int)round(floor(avgTemp)) % 10, state);
+      delay(5);
       avgTemp = 0;
       ok = 0;
     // }
